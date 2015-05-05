@@ -9,7 +9,7 @@ regular updates from the weather services.
 
 #### Install and deploy: prerequisites -- node.js, npm, and jake; HAProxy optional ...
 1. npm install -- ./node_modules/[a-z]
-2. jake or jake index -- creates index.html from this ReadMe.md
+2. jake or jake deploy -- creates index.html from this ReadMe.md
 3. ./server.js -- listens on default port 9000
 
 Only tested so far with node.js 0.12.2 on Linux with chrome, firefox,and seamonkey
