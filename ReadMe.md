@@ -1,4 +1,4 @@
-## Open Street Map Weather WebSocket (Socket.io) demo. comparing Leaflet and OpenLayers3
+#### Open Street Map Weather WebSocket (Socket.io) demo. comparing Leaflet and OpenLayers3
  
 Provides a popup / layover / marker containing local weather conditions for selected location.
 Browser client single-left-mouse-click should emit lat-lon coord. to server which then converts to
@@ -7,22 +7,22 @@ not currently contain the location of interest, a REST API date fetch is perform
 National Weather Service and/or the Open Weather Map service. The cache is also populated via
 regular updates from the weather services.
 
-### Install and deploy: prerequisites -- node.js, npm, and jake; HAProxy optional ...
+#### Install and deploy: prerequisites -- node.js, npm, and jake; HAProxy optional ...
 1. npm install -- ./node_modules/[a-z]
 2. jake or jake index -- creates index.html from this ReadMe.md
 3. ./server.js -- listens on default port 9000
 
 Only tested so far with node.js 0.12.2 on Linux with chrome, firefox,and seamonkey
 
-### Leaflet Demo:
+#### Leaflet Demo:
 
 <http://localhost:9000/leaflet> or <http://earth.eviz.biz/leaflet>
 
-### Openlayers 3 Demo:
+#### Openlayers 3 Demo:
 
 <http://localhost:9000/openlayers> or <http://earth.eviz.biz/openlayers>
 
-### TBD:
+#### TBD:
 1. perform reverse geoloaction search for selected (mouse-click lat-lon) place-name via: <https://github.com/twain47/Nominatim>
 2. get international data via open weather map service (see below).
 3. jazz it up with bootstrap -- 3-column layout ala: <https://github.com/evizbiz/bootstrap-viewer-template/tree/master/3-column>
@@ -32,7 +32,7 @@ Only tested so far with node.js 0.12.2 on Linux with chrome, firefox,and seamonk
 7. compare server-side node.js (server.js) with python flask micro-server-framework (server.py) implementation: <https://github.com/miguelgrinberg/Flask-SocketIO>
 8. also compare socket.io and sockjs
 
-### NOAA Nationa Weather Service provides free info, but this particular interface provides lots of extraneuous content:
+#### NOAA Nationa Weather Service provides free info, but this particular interface provides lots of extraneuous content:
 
 <http://forecast.weather.gov/MapClick.php?lat=29.7&lon=-82.5>
 
@@ -49,26 +49,26 @@ expects registration for a unique 'appkey' ..
 
 ---
 
-### Open Weather Map provide 1200 / min free -- wow!
+#### Open Weather Map provide 1200 / min free -- wow!
     appkey: 'regiser to get your unique hex key'
     http://api.openweathermap.org/data/2.5/forecast/city?id=524901&APPID=appkey
     http://api.openweathermap.org/data/2.5/weather?lat=val&lon=val&APPID=appkey
 
-### Near real-time data from wunderground.com 500 / day free 
+#### Near real-time data from wunderground.com 500 / day free 
     appkey: 'regiser to get your unique hex key' 
     http://api.wunderground.com/api/appkey/conditions/q/lat,lon
 
-### forecast.io (appId keys requires) 1000 / day free 
+#### forecast.io (appId keys requires) 1000 / day free 
     appkey: 'regiser to get your unique hex key'
     https://api.forecast.io/forecast/appkey/lat,lon
 
-### worldweatheronline.com provides 1000 / day free
+#### worldweatheronline.com provides 1000 / day free
     appkey: 'regiser to get your unique hex key'
     http://api.worldweatheronline.com/free/v2/weather.ashx?q=London&format=json&num_of_days=1&key=appkey
 
 ---
 
-### Geolocation with lat-lon data sources
+#### Geolocation with lat-lon data sources
 
 Note that the NWS response.data json buffer for the requested lat-lon coord. includes a 
 place / city / town name. Nevertheless it may be of use to provide a placename service too
