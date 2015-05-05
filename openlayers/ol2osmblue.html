@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>My Map</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ol3/3.4.0/ol.min.css" type="text/css">
+</head>
+<body>
+  <h1>My Map</h1>
+  <div id="ol3map-id" style="width: 512px; height: 256px;"></div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/ol3/3.4.0/ol.min.js"></script>
+  <script>
+    var map = new OpenLayers.Map("ol3map-id");
+    var bluemarble= new OpenLayers.Layer.WMS(
+        "Global Imagery",
+        "http://maps.opengeo.org/geowebcache/service/wms",
+        {layers: "bluemarble", format: "image/png"}
+    );
+    var osm = new OpenLayers.Layer.WMS(
+        "Global Imagery",
+        "http://maps.opengeo.org/geowebcache/service/wms",
+        {layers: "openstreetmap", format: "image/png"}
+    );
+    map.addLayer(bluemarble);
+    map.addLayer(osm);
+    map.zoomToMaxExtent();
+  </script>
+</body>
+</html>

@@ -1,0 +1,51 @@
+<!doctype html>
+<html>
+<head>
+  <title>Leaflet Socket.io Test</title>
+  <link rel="stylesheet" href="/css/leaflet.css"/>
+  <!--
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.3/leaflet.css"/>
+  <style> 
+    div { background-color: lightgrey; width: 96%; height: 60%; padding: 1%; border: 1% solid navy }
+  </style>
+  -->
+</head>
+<body>
+  <div id="date"></div><hr/>
+  <span style="width: 33%; height: 5%">
+    <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element">HTML5 reference</a>
+  </span>
+  <span style="width: 33%; height: 5%"> ... </span>
+  <span style="width: 33%; height: 5%">
+    <a href="https://css-tricks.com/textarea-tricks">
+      interesting things textarea supports: https://css-tricks.com/textarea-tricks
+    </a>
+  </span>
+  <hr/>
+  <!--
+  <textarea id="text" placeholder="weatherground data here" style="width: 99%; height: 25%"><textarea><hr/>
+  -->
+  <!-- 
+    evidently the Leaflet div arg ctor is confused when other items with css style "display: block"
+    like textarea and span are in the same page / frame. the result is either no map area or
+    a rather narrow rect ... but putting some other content within the div like <p> or <hr/> or <br>
+    seems to force a larger area rect!
+  -->
+  <div id="map">
+    <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+    <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+  </dev>
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="/js/jquery.min.js"></script>
+  <!-- <script src="/js/jquery.geolocation.min.js"></script> -->
+  <script src="/js/leaflet.js"></script>
+  <!-- extend jQuery with Leaflet "L" object and Socket.io "io" object map weather popup: "$.Weather" -->
+  <script src="/js/weathermap.js"></script>
+  <script>
+    $(document).ready(function() {
+      $.Weather.websock();
+      $.Weather.leafletMap();
+    });
+  </script>
+</body>
+</html>

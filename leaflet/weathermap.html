@@ -1,0 +1,40 @@
+<!doctype html>
+<html>
+<head>
+  <title>Leaflet Socket.io Test</title>
+  <link rel="stylesheet" href="/leaflet/css/leaflet.css"/>
+</head>
+<body>
+  <div id="header" style="width: 100%; height: 5%">
+    <span style="width: 50%">
+    <textarea id="date-header" cols="80" placeholder="date-time sysinfo"></textarea>
+    </span>
+    <span style="width: 50%">
+    <textarea id="text-header" cols="80" placeholder="mouse clicked coord and whaterver else"></textarea>
+    </span>
+  </div>
+  <!-- 
+    evidently the Leaflet div arg ctor is confused when other items with css style "display: block"
+    like textarea and span are in the same page / frame. the result is either no map area or
+    a rather narrow rect ... but putting some other content within the div like <p> or <hr/> or <br>
+    seems to force a larger area rect!
+  -->
+  <div id="map" style="width: 100%; height: 75%">
+    <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+    <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+  </div>
+  <textarea id="text-footer" placeholder="weather data here" style="width: 100%; height: 20%"></textarea>
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="/js/jquery.min.js"></script>
+  <!-- <script src="/js/jquery.geolocation.min.js"></script> -->
+  <script src="/leaflet/js/leaflet.js"></script>
+  <!-- extend jQuery with Leaflet "L" object and Socket.io "io" object map weather popup: "$.Weather" -->
+  <script src="/leaflet/js/weathermap.js?latest"></script>
+  <script>
+    $(document).ready(function() {
+      $.Weather.websock();
+      $.Weather.leafletMap();
+    });
+  </script>
+</body>
+</html>

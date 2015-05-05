@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<head>
+  <meta charset="utf-8" />
+  <title>OpenLayers 3 - Popup</title>
+  <meta name="viewport" content="initial-scale=1.0, user-scalable=no, width=device-width">
+  <link rel="stylesheet" href="http://openlayers.org/en/v3.4.0/css/ol.css" />
+  <link rel="stylesheet" href="/openlayers/css/ol3-popup.css" />
+  <link rel="stylesheet" href="/openlayers/css/popup.css" />
+</head>
+<body>
+  <div id="header" style="width: 100%; height: 5%">
+    <span style="width: 50%">
+    <textarea id="date" cols="80" rows="3" placeholder="date and sysinfo"></textarea>
+    </span>
+    <span style="width: 50%">
+    <textarea id="text-header" cols="80" rows="3" placeholder="other header info (like click coords.)"></textarea>
+    </span>
+  </div>
+  <div id="map"></div>
+  <textarea id="text-footer" rows="10" placeholder="weather data log" style="width: 100%; height: 20%"></textarea>
+  <script src="/js/jquery.min.js"></script>
+  <script src="http://openlayers.org/en/v3.4.0/build/ol.js?latest"></script>
+  <!--
+  <script src="/openlayers/js/ol.js?latest"></script>
+  -->
+  <script src="/socket.io/socket.io.js"></script>
+  <!--
+  <script src="/js/ol3-popup.js"></script>
+  <script src="/js/popup.js"></script>
+  -->
+  <!-- extend jQuery with OpenLayers3 (ol3) object and Socket.io "io" object map weather popup: "$.Weather" -->
+  <script src="/openlayers/js/weathermap.js?latest"></script>
+  <script>
+    $(document).ready(function() {
+      Weather.websock();
+      Weather.ol3Map();
+    });
+  </script>
+</body>

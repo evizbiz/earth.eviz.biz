@@ -1,0 +1,49 @@
+{
+ "name": "worldview-node-socket.io",
+ "version": "0.0.0",
+ "description": "extend worldview with websockets and custom node server",
+ "main": "server.js",
+ "dependencies": {
+  "express": "latest",
+  "geojson": "latest",
+  "glob": "latest",
+  "html2jade": "latest",
+  "jade": "latest",
+  "jake": "latest",
+  "less": "latest",
+  "lodash": "latest",
+  "markdown": "latest",
+  "memcached": "latest",
+  "minimist": "latest",
+  "mjson": "latest",
+  "mkdirp": "latest",
+//"osmium": "latest",
+  "request": "latest",
+  "socket.io": "latest"
+ },
+ "devDependencies": {},
+ "scripts": {
+  "test": "test",
+  "start": "./server.js"
+ },
+ "repository": {
+  "type": "git",
+  "url": "https://github.com/evizbiz/globe.eviz.biz"
+ },
+ "keywords": [
+  "worldview",
+  "websockets",
+  "socket.io",
+  "node.js",
+  "GIBS",
+  "GIS",
+  "weather",
+  "Leaflet",
+  "Openlayers"
+ ],
+ "author": "david b. hon and the worldview developers at NASA/Goddar/ColumbusTech",
+ "license": "MIT",
+ "bugs": {
+  "url": "https://github.com/evizbiz/globe.eviz.biz/issues"
+ }
+}

@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title> Compare Leaflet and Openlayers3 Websocket / Socket.io </title>
+<meta http-equiv="cache-control" content="no-cache, must-revalidate, post-check=0, pre-check=0">
+<meta http-equiv="expires" content="Sat, 31 Oct 2014 00:00:00 GMT">
+<meta http-equiv="pragma" content="no-cache">
+</head>
+<body>
+<h2>Open Street Map Weather WebSocket (Socket.io) demo. comparing Leaflet and OpenLayers3</h2>
+
+<p>Provides a popup / layover / marker containing local weather conditions for selected location.
+Client single-left-mouse-click should emit lat-lon coord. to server which then converts to
+quadtree cell index and searches for data in a quadtree indexed hash cache. If the cache does
+not currently contan the location of interest, a REST API date fetch is perform from the NOAA
+National Weather Service and/or the Open Weather Map service. The cache is also populated via
+regular updates from the weather services.</p>
+
+<h3>Install and deploy: prerequisites -- node.js, npm, and jake; HAProxy optional ...</h3>
+
+<ol><li>npm install -- ./node_modules/[a-z]</li><li>jake or jake index -- creates index.html from this ReadMe.md</li><li>./server.js -- listens on default port 9000</li></ol>
+
+<h3>Leaflet Demo:</h3>
+
+<p><a href="http://localhost:9000/leaflet">http://localhost:9000/leaflet</a> or <a href="http://earth.eviz.biz/leaflet">http://earth.eviz.biz/leaflet</a></p>
+
+<h3>Openlayers 3 Demo:</h3>
+
+<p><a href="http://localhost:9000/openlayers">http://localhost:9000/openlayers</a> or <a href="http://earth.eviz.biz/openlayers">http://earth.eviz.biz/openlayers</a></p>
+
+<h3>TBD:</h3>
+
+<ol><li>perform reverse geoloaction search for selected (mouse-click lat-lon) place-name via: <a href="https://github.com/twain47/Nominatim">https://github.com/twain47/Nominatim</a></li><li>get international data via open weather map service (see below).</li><li>jazz it up with bootstrap -- 3-column layout ala: <a href="https://github.com/evizbiz/bootstrap-viewer-template/tree/master/3-column">https://github.com/evizbiz/bootstrap-viewer-template/tree/master/3-column</a></li><li>complete cache functionaility -- file-system, memcached interface, and maybe postgis</li><li>refactor html into jade with markdown; refactor common js into separate module; refactor css with lessc</li><li>in-house deployment of mapnik or custom tile-server (local install of libosmium with full osm pdf dataset and optional import into local postgis)  </li><li>compare server-side node.js (server.js) with python flask micro-server-framework (server.py) implementation: <a href="https://github.com/miguelgrinberg/Flask-SocketIO">https://github.com/miguelgrinberg/Flask-SocketIO</a></li><li>also compare socket.io and sockjs</li></ol>
+
+<h3>NOAA Nationa Weather Service provides free info, but this particular interface provides lots of extraneuous content:</h3>
+
+<p><a href="http://forecast.weather.gov/MapClick.php?lat=29.7&amp;lon=-82.5">http://forecast.weather.gov/MapClick.php?lat=29.7&amp;lon=-82.5</a></p>
+
+<p>After some experimentation this works for json. &quot;currentconditions&quot; and 1 week forecat summary
+(14 items 7 day and 7 night summary):</p>
+
+<p><a href="http://forecast.weather.gov/MapClick.php?lat=29.7&amp;lon=-82.5&amp;unit=0&amp;lg=english&amp;FcstType=json">http://forecast.weather.gov/MapClick.php?lat=29.7&amp;lon=-82.5&amp;unit=0&amp;lg=english&amp;FcstType=json</a></p>
+
+<p> ... and FcstType=xml is also available ...</p>
+
+<p>The NOAA national weather service (at least the above URL) provides USA data. International data
+is freely available from the sources described below in a limited fashion. Note each service
+expects registration for a unique &#39;appkey&#39; ..  </p>
+
+<hr/>
+
+<h3>Open Weather Map provide 1200 / min free -- wow!</h3>
+
+<pre><code>appkey: &#39;regiser to get your unique hex key&#39;
+http://api.openweathermap.org/data/2.5/forecast/city?id=524901&amp;APPID=appkey
+http://api.openweathermap.org/data/2.5/weather?lat=val&amp;lon=val&amp;APPID=appkey</code></pre>
+
+<h3>Near real-time data from wunderground.com 500 / day free</h3>
+
+<pre><code>appkey: &#39;regiser to get your unique hex key&#39; 
+http://api.wunderground.com/api/appkey/conditions/q/lat,lon</code></pre>
+
+<h3>forecast.io (appId keys requires) 1000 / day free</h3>
+
+<pre><code>appkey: &#39;regiser to get your unique hex key&#39;
+https://api.forecast.io/forecast/appkey/lat,lon</code></pre>
+
+<h3>worldweatheronline.com provides 1000 / day free</h3>
+
+<pre><code>appkey: &#39;regiser to get your unique hex key&#39;
+http://api.worldweatheronline.com/free/v2/weather.ashx?q=London&amp;format=json&amp;num_of_days=1&amp;key=appkey</code></pre>
+
+<hr/>
+
+<h3>Geolocation with lat-lon data sources</h3>
+
+<p>Note that the NWS response.data json buffer for the requested lat-lon coord. includes a 
+place / city / town name. Nevertheless it may be of use to provide a placename service too</p>
+
+<p>Evidently the Open Street Map server provides a REST API for place-name lookup (place name
+query that returns lat-lon coord) and reverse lookup (lat-lon query that returns place name).
+See <a href="http://wiki.openstreetmap.org/wiki/Nominatim">http://wiki.openstreetmap.org/wiki/Nominatim</a></p>
+
+<p>Also see ./data/cities.csh -- maxmind provides a free compresses csv.txt with an extensive list
+<a href="http://dev.maxmind.com/geoip/legacy/geolite and https://www.maxmind.com/en/free-world-cities-database">http://dev.maxmind.com/geoip/legacy/geolite and https://www.maxmind.com/en/free-world-cities-database</a></p>
+
+<p>These are also of interset:</p>
+
+<p><a href="http://www.naturalearthdata.com/downloads/10m-cultural-vectors/10m-populated-places">http://www.naturalearthdata.com/downloads/10m-cultural-vectors/10m-populated-places</a>
+<a href="http://download.geonames.org/export/dump">http://download.geonames.org/export/dump</a>
+<a href="http://sedac.ciesin.columbia.edu/data/set/grump-v1-settlement-points/data-download">http://sedac.ciesin.columbia.edu/data/set/grump-v1-settlement-points/data-download</a></p>
+
+<hr/>
+
+<h3>Short-flat minimal directory tree description</h3>
+
+<p>Note src and roadmap directories are not actually required by static express content service </p>
+
+<ol><li>./src -- custom node.js modules; jade source for html generation; maybe less source for css too?</li><li>./src/roadmap -- future plans tbd</li><li>./src/roadmap/site-packages -- future python modules</li></ol>
+
+<p>Directories served via node.js express &quot;static&quot; middelware:</p>
+
+<ol><li>./css -- general css (perhaps compiled from lessc in ./src) shared by all pages.</li><li>./fonts -- general fonts shared by all pages.</li><li>./img -- general images shared by all pages.</li><li>./js -- general javascript libs (like jquery) shared by all pages.</li><li>./leaflet -- leaflet OSM + weather app</li><li>./leaflet/css -- css files specific to leaflet app</li><li>./leaflet/img -- image files specific to leaflet app</li><li>./leaflet/js -- javascript specific to leaflet app</li><li>./node_modules -- node.js modules supporting express service </li><li>./openlayers -- openlayers 3 OSM + weather app</li><li>./openlayers/css -- css files specific to openlayers app</li><li>./openlayers/img -- image files specific to openlayers app</li><li>./openlayers/js -- javascript specific to openlayers app</li></ol>
+</body>
+</html>

@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <title>OpenLayers 3 example</title>
+  <!--
+  <style> #map { height: 256px; width: 512px; } </style>
+  -->
+  <style> #map { height: 50%; width: 100%; } </style>
+</head>
+<body>
+  <h1>OpenLayers 3.x Map: BlueMarbel base with OpenStreatMap Overlay</h1>
+  <div id="map"></div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/ol3/3.4.0/ol.min.js"></script>
+  <!-- ol global provided by ol.min.js -->
+  <script type="text/javascript">
+    var BMtile = new ol.layer.Tile({
+      title: "Global Imagery",
+      source: new ol.source.TileWMS({
+        url: 'http://maps.opengeo.org/geowebcache/service/wms',
+        params: {LAYERS: 'bluemarble', VERSION: '1.1.1'}
+      })
+    })
+    var OSMtile = new ol.layer.Tile({
+      title: "Global Imagery",
+      source: new ol.source.TileWMS({
+        url: 'http://maps.opengeo.org/geowebcache/service/wms',
+        params: {LAYERS: 'openstreetmap', VERSION: '1.1.1'}
+      })
+    })
+    var map = new ol.Map({
+      target: 'map',
+      layers: [ BMtile, OSMtile ],
+        view: new ol.View({ projection: 'EPSG:4326', center: [0, 0], zoom: 0, maxResolution: 0.703125})
+      });
+    </script>
+  </body>
+</html>
+
