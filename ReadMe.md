@@ -1,9 +1,9 @@
 ## Open Street Map Weather WebSocket (Socket.io) demo. comparing Leaflet and OpenLayers3
  
 Provides a popup / layover / marker containing local weather conditions for selected location.
-Client single-left-mouse-click should emit lat-lon coord. to server which then converts to
+Browser client single-left-mouse-click should emit lat-lon coord. to server which then converts to
 quadtree cell index and searches for data in a quadtree indexed hash cache. If the cache does
-not currently contan the location of interest, a REST API date fetch is perform from the NOAA
+not currently contain the location of interest, a REST API date fetch is perform from the NOAA
 National Weather Service and/or the Open Weather Map service. The cache is also populated via
 regular updates from the weather services.
 
@@ -11,6 +11,8 @@ regular updates from the weather services.
 1. npm install -- ./node_modules/[a-z]
 2. jake or jake index -- creates index.html from this ReadMe.md
 3. ./server.js -- listens on default port 9000
+
+Only tested so far with node.js 0.12.2 on Linux with chrome, firefox,and seamonkey
 
 ### Leaflet Demo:
 
