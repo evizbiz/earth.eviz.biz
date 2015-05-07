@@ -25,12 +25,13 @@ Only tested so far with node.js 0.12.2 on Linux with chrome, firefox,and seamonk
 #### TBD:
 1. perform reverse geoloaction search for selected (mouse-click lat-lon) place-name via: <https://github.com/twain47/Nominatim>
 2. get international data via open weather map service (see below).
-3. jazz it up with bootstrap -- 3-column layout ala: <https://github.com/evizbiz/bootstrap-viewer-template/tree/master/3-column>
-4. complete cache functionaility -- file-system, memcached interface, and maybe postgis
-5. refactor html into jade with markdown; refactor common js into separate module; refactor css with lessc
-6. in-house deployment of mapnik or custom tile-server (local install of libosmium with full osm pdf dataset and optional import into local postgis)  
-7. compare server-side node.js (server.js) with python flask micro-server-framework (server.py) implementation: <https://github.com/miguelgrinberg/Flask-SocketIO>
-8. also compare socket.io and sockjs
+3. get more data (atmosphere and ocean) from nasa eos and other satellites via: <https://wiki.earthdata.nasa.gov/display/GIBS/GIBS+Available+Imagery+Products>
+4. jazz it up with bootstrap -- 3-column layout ala: <https://github.com/evizbiz/bootstrap-viewer-template/tree/master/3-column>
+5. complete cache functionaility -- file-system, memcached interface, and maybe postgis
+6. refactor html into jade with markdown; refactor common js into separate module; refactor css with lessc
+7. in-house deployment of mapnik or custom tile-server (local install of libosmium with full osm pdf dataset and optional import into local postgis)  
+8. compare server-side node.js (server.js) with python flask micro-server-framework (server.py) implementation: <https://github.com/miguelgrinberg/Flask-SocketIO>
+9. also compare socket.io and sockjs
 
 #### NOAA Nationa Weather Service provides free info, but this particular interface provides lots of extraneuous content:
 
