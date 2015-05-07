@@ -21,7 +21,7 @@ Only tested so far with node.js 0.12.2 on Linux with chrome, firefox,and seamonk
 
 #### Openlayers 3 Demo:
 
-<http://localhost:9000/openlayers> or <http://leaf.earthlimb.net> and/or <http://earth.eviz.biz/openlayers>
+<http://localhost:9000/openlayers> or <http://ol3.earthlimb.net> and/or <http://earth.eviz.biz/openlayers>
 
 #### TBD:
 1. perform reverse geoloaction search for selected (mouse-click lat-lon) place-name via: <https://github.com/twain47/Nominatim>
