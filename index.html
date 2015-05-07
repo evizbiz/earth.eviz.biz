@@ -7,32 +7,39 @@
 <meta http-equiv="pragma" content="no-cache">
 </head>
 <body>
-<h2>Open Street Map Weather WebSocket (Socket.io) demo. comparing Leaflet and OpenLayers3</h2>
+<h4>Open Street Map Weather WebSocket (Socket.io) demo. comparing Leaflet and OpenLayers3</h4>
 
 <p>Provides a popup / layover / marker containing local weather conditions for selected location.
-Client single-left-mouse-click should emit lat-lon coord. to server which then converts to
+Browser client single-left-mouse-click should emit lat-lon coord. to server which then converts to
 quadtree cell index and searches for data in a quadtree indexed hash cache. If the cache does
-not currently contan the location of interest, a REST API date fetch is perform from the NOAA
+not currently contain the location of interest, a REST API date fetch is perform from the NOAA
 National Weather Service and/or the Open Weather Map service. The cache is also populated via
 regular updates from the weather services.</p>
 
-<h3>Install and deploy: prerequisites -- node.js, npm, and jake; HAProxy optional ...</h3>
+<h4>Install and deploy: prerequisites -- node.js, npm, and jake; HAProxy optional ...</h4>
 
-<ol><li>npm install -- ./node_modules/[a-z]</li><li>jake or jake index -- creates index.html from this ReadMe.md</li><li>./server.js -- listens on default port 9000</li></ol>
+<ol><li>npm install -- ./node_modules/[a-z]</li><li>jake or jake deploy -- creates index.html from this ReadMe.md</li><li>./server.js -- weberver default port 9000 showing this ReadMe/index.html: <a href="http://localhost:9000">http://localhost:9000</a></li></ol>
 
-<h3>Leaflet Demo:</h3>
+<p>Only tested so far with node.js 0.12.2 on Linux with chrome, firefox,and seamonkey
+(deployed on <a href="http://1and1.com">http://1and1.com</a> dedicated servers ...)</p>
 
-<p><a href="http://localhost:9000/leaflet">http://localhost:9000/leaflet</a> or <a href="http://earth.eviz.biz/leaflet">http://earth.eviz.biz/leaflet</a></p>
+<h4>Demos</h4>
 
-<h3>Openlayers 3 Demo:</h3>
+<p>local install:</p>
 
-<p><a href="http://localhost:9000/openlayers">http://localhost:9000/openlayers</a> or <a href="http://earth.eviz.biz/openlayers">http://earth.eviz.biz/openlayers</a></p>
+<p><a href="http://localhost:9000/leaflet">http://localhost:9000/leaflet</a> and <a href="http://localhost:9000/openlayers">http://localhost:9000/openlayers</a> </p>
 
-<h3>TBD:</h3>
+<p>also thru haproxy on my ubuntu and centos servers at 1and1 (with out-of-date ssl certificates): </p>
 
-<ol><li>perform reverse geoloaction search for selected (mouse-click lat-lon) place-name via: <a href="https://github.com/twain47/Nominatim">https://github.com/twain47/Nominatim</a></li><li>get international data via open weather map service (see below).</li><li>jazz it up with bootstrap -- 3-column layout ala: <a href="https://github.com/evizbiz/bootstrap-viewer-template/tree/master/3-column">https://github.com/evizbiz/bootstrap-viewer-template/tree/master/3-column</a></li><li>complete cache functionaility -- file-system, memcached interface, and maybe postgis</li><li>refactor html into jade with markdown; refactor common js into separate module; refactor css with lessc</li><li>in-house deployment of mapnik or custom tile-server (local install of libosmium with full osm pdf dataset and optional import into local postgis)  </li><li>compare server-side node.js (server.js) with python flask micro-server-framework (server.py) implementation: <a href="https://github.com/miguelgrinberg/Flask-SocketIO">https://github.com/miguelgrinberg/Flask-SocketIO</a></li><li>also compare socket.io and sockjs</li></ol>
+<p><a href="https://leaf.earthlimb.net">https://leaf.earthlimb.net</a> and <a href="https://ol3.earthlimb.net">https://ol3.earthlimb.net</a> </p>
 
-<h3>NOAA Nationa Weather Service provides free info, but this particular interface provides lots of extraneuous content:</h3>
+<p><a href="https://earth.eviz.biz/leaflet">https://earth.eviz.biz/leaflet</a> and <a href="https://earth.eviz.biz/openlayers">https://earth.eviz.biz/openlayers</a></p>
+
+<h4>TBD:</h4>
+
+<ol><li>perform reverse geoloaction search for selected (mouse-click lat-lon) place-name via: <a href="https://github.com/twain47/Nominatim">https://github.com/twain47/Nominatim</a></li><li>get international data via open weather map service (see below).</li><li>get more data (atmosphere and ocean) from nasa eos and other satellites via: <a href="https://wiki.earthdata.nasa.gov/display/GIBS/GIBS+Available+Imagery+Products">https://wiki.earthdata.nasa.gov/display/GIBS/GIBS+Available+Imagery+Products</a></li><li>jazz it up with bootstrap -- 3-column layout ala: <a href="https://github.com/evizbiz/bootstrap-viewer-template/tree/master/3-column">https://github.com/evizbiz/bootstrap-viewer-template/tree/master/3-column</a></li><li>complete cache functionaility -- file-system, memcached interface, and maybe postgis</li><li>refactor html into jade with markdown; refactor common js into separate module; refactor css with lessc</li><li>in-house deployment of mapnik or custom tile-server (local install of libosmium with full osm pdf dataset and optional import into local postgis)  </li><li>compare server-side node.js (server.js) with python flask micro-server-framework (server.py) implementation: <a href="https://github.com/miguelgrinberg/Flask-SocketIO">https://github.com/miguelgrinberg/Flask-SocketIO</a></li><li>also compare socket.io and sockjs</li></ol>
+
+<h4>NOAA Nationa Weather Service provides free info, but this particular interface provides lots of extraneuous content:</h4>
 
 <p><a href="http://forecast.weather.gov/MapClick.php?lat=29.7&amp;lon=-82.5">http://forecast.weather.gov/MapClick.php?lat=29.7&amp;lon=-82.5</a></p>
 
@@ -49,30 +56,30 @@ expects registration for a unique &#39;appkey&#39; ..  </p>
 
 <hr/>
 
-<h3>Open Weather Map provide 1200 / min free -- wow!</h3>
+<h4>Open Weather Map provide 1200 / min free -- wow!</h4>
 
 <pre><code>appkey: &#39;regiser to get your unique hex key&#39;
 http://api.openweathermap.org/data/2.5/forecast/city?id=524901&amp;APPID=appkey
 http://api.openweathermap.org/data/2.5/weather?lat=val&amp;lon=val&amp;APPID=appkey</code></pre>
 
-<h3>Near real-time data from wunderground.com 500 / day free</h3>
+<h4>Near real-time data from wunderground.com 500 / day free</h4>
 
 <pre><code>appkey: &#39;regiser to get your unique hex key&#39; 
 http://api.wunderground.com/api/appkey/conditions/q/lat,lon</code></pre>
 
-<h3>forecast.io (appId keys requires) 1000 / day free</h3>
+<h4>forecast.io (appId keys requires) 1000 / day free</h4>
 
 <pre><code>appkey: &#39;regiser to get your unique hex key&#39;
 https://api.forecast.io/forecast/appkey/lat,lon</code></pre>
 
-<h3>worldweatheronline.com provides 1000 / day free</h3>
+<h4>worldweatheronline.com provides 1000 / day free</h4>
 
 <pre><code>appkey: &#39;regiser to get your unique hex key&#39;
 http://api.worldweatheronline.com/free/v2/weather.ashx?q=London&amp;format=json&amp;num_of_days=1&amp;key=appkey</code></pre>
 
 <hr/>
 
-<h3>Geolocation with lat-lon data sources</h3>
+<h4>Geolocation with lat-lon data sources</h4>
 
 <p>Note that the NWS response.data json buffer for the requested lat-lon coord. includes a 
 place / city / town name. Nevertheless it may be of use to provide a placename service too</p>
