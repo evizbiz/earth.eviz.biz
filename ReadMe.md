@@ -10,17 +10,18 @@ regular updates from the weather services.
 #### Install and deploy: prerequisites -- node.js, npm, and jake; HAProxy optional ...
 1. npm install -- ./node_modules/[a-z]
 2. jake or jake deploy -- creates index.html from this ReadMe.md
-3. ./server.js -- listens on default port 9000
+3. ./server.js -- weberver default port 9000 showing this ReadMe/index.html: <http://localhost:9000>
 
 Only tested so far with node.js 0.12.2 on Linux with chrome, firefox,and seamonkey
+(deployed on <http://1and1.com> dedicated servers ...)
 
-#### Leaflet Demo:
+#### Leaflet Demo 
 
-<http://localhost:9000/leaflet> or <http://earth.eviz.biz/leaflet>
+<http://localhost:9000/leaflet> or <http://leaf.earthlimb.net>  and/or <http://earth.eviz.biz/leaflet> 
 
 #### Openlayers 3 Demo:
 
-<http://localhost:9000/openlayers> or <http://earth.eviz.biz/openlayers>
+<http://localhost:9000/openlayers> or <http://leaf.earthlimb.net> and/or <http://earth.eviz.biz/openlayers>
 
 #### TBD:
 1. perform reverse geoloaction search for selected (mouse-click lat-lon) place-name via: <https://github.com/twain47/Nominatim>
