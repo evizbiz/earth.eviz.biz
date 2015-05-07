@@ -15,13 +15,15 @@ regular updates from the weather services.
 Only tested so far with node.js 0.12.2 on Linux with chrome, firefox,and seamonkey
 (deployed on <http://1and1.com> dedicated servers ...)
 
-#### Leaflet Demo 
+#### Demos
 
-<http://localhost:9000/leaflet> or <http://leaf.earthlimb.net>  and/or <http://earth.eviz.biz/leaflet> 
+local install:
+<http://localhost:9000/leaflet> and <http://localhost:9000/openlayers> 
 
-#### Openlayers 3 Demo:
+also thru haproxy on my ubuntu and centos servers at 1and1: 
+<http://leaf.earthlimb.net> and <http://ol3.earthlimb.net>
+<http://earth.eviz.biz/leaflet> and `<http://earth.eviz.biz/openlayers>
 
-<http://localhost:9000/openlayers> or <http://ol3.earthlimb.net> and/or <http://earth.eviz.biz/openlayers>
 
 #### TBD:
 1. perform reverse geoloaction search for selected (mouse-click lat-lon) place-name via: <https://github.com/twain47/Nominatim>
