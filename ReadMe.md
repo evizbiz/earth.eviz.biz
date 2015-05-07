@@ -18,11 +18,14 @@ Only tested so far with node.js 0.12.2 on Linux with chrome, firefox,and seamonk
 #### Demos
 
 local install:
+
 <http://localhost:9000/leaflet> and <http://localhost:9000/openlayers> 
 
-also thru haproxy on my ubuntu and centos servers at 1and1: 
-<http://leaf.earthlimb.net> and <http://ol3.earthlimb.net>
-<http://earth.eviz.biz/leaflet> and `<http://earth.eviz.biz/openlayers>
+also thru haproxy on my ubuntu and centos servers at 1and1 (with out-of-date ssl certificates): 
+
+<https://leaf.earthlimb.net> and <https://ol3.earthlimb.net> 
+
+<https://earth.eviz.biz/leaflet> and <https://earth.eviz.biz/openlayers>
 
 
 #### TBD:
