@@ -82,7 +82,9 @@ place / city / town name. Nevertheless it may be of use to provide a placename s
 
 Evidently the Open Street Map server provides a REST API for place-name lookup (place name
 query that returns lat-lon coord) and reverse lookup (lat-lon query that returns place name).
-See <http://wiki.openstreetmap.org/wiki/Nominatim>
+See:
+
+<http://wiki.openstreetmap.org/wiki/Nominatim>
 
 Also see ./data/cities.csh -- maxmind provides a free compresses csv.txt with an extensive list
 <http://dev.maxmind.com/geoip/legacy/geolite and https://www.maxmind.com/en/free-world-cities-database>
