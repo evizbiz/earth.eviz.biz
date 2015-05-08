@@ -1,0 +1,32 @@
+{ "type": "FeatureCollection", "features": [
+  { "type": "Feature",
+    "geometry": { "type": "Point", "coordinates": [-82.33205795288086,29.64998056654069] },
+    "properties": {
+      "name": "UF Innovation Hub",
+      "address": "TBD",
+      "marker-color": "#7e7e7e",
+      "marker-size": "medium",
+      "marker-symbol": "building"
+    }
+  },
+  { "type": "Feature",
+    "geometry": { "type": "Point", "coordinates": [-82.324247, 29.64941] },
+    "properties": {
+      "name": "Boca Fiesta",
+      "address": "232 SE 1 St, Gainesville FL 32601, phone: 352-336-8226",
+      "marker-color": "#7e7e7e",
+      "marker-size": "medium",
+      "marker-symbol": "bar"
+    }
+  },
+  { "type": "Feature",
+    "geometry": { "type": "Point", "coordinates": [-82.34587669372559,29.648693840494918] },
+    "properties": {
+      "name": "UF Astronomy Bryant Space Science Center",
+      "address": "TBD",
+      "marker-color": "#7e7e7e",
+      "marker-size": "medium",
+      "marker-symbol": "building"
+    }
+  }
+]}
