@@ -32,7 +32,7 @@
 
   Weather.leafletMap = function() {
     // user location (position.coords.latitude, position.coords.longitude).
-    if ("geolocation" in navigator) {
+    if( "geolocation" in navigator ) {
       navigator.geolocation.getCurrentPosition(function(pos) { Weather.position = pos;} );
     }
 
