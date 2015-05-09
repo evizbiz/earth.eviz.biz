@@ -193,7 +193,9 @@ Weather.onMapClick = function(click) {
 
 Weather.ol3Map = function() {
   // openlayers 3 cdn or local copy of ol3.min.js provides ol global 
-  navigator.geolocation.getCurrentPosition(function(pos) { Weather.position = pos;} );
+  if( navigator.geolocation.getCurrentPosition ) {
+    navigator.geolocation.getCurrentPosition(function(pos) { Weather.position = pos;} );
+  }
   Weather.lonlat = [Weather.position.coords.longitude, Weather.position.coords.latitude];
   var osmsrc = new ol.source.OSM();
   var osmtile = new ol.layer.Tile({ source: osmsrc })

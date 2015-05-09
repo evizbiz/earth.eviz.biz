@@ -32,7 +32,10 @@
 
   Weather.leafletMap = function() {
     // user location (position.coords.latitude, position.coords.longitude).
-    navigator.geolocation.getCurrentPosition(function(pos) { Weather.position = pos;} );
+    if( navigator.geolocation.getCurrentPosition ) {
+      navigator.geolocation.getCurrentPosition(function(pos) { Weather.position = pos;} );
+    }
+
     var map = L.map('map'); console.log('leaflet map for div id == "map"');
     //$.geolocation.get({win: alertMyPosition, fail: noLocation});
     var loc = { lat: Weather.position.coords.latitude, lon: Weather.position.coords.longitude }; // default gainesville fl
