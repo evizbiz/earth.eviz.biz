@@ -23,9 +23,9 @@ local install:
 
 also thru haproxy on my ubuntu and centos servers at 1and1 (with out-of-date ssl certificates): 
 
-<https://earthlimb.net> or <https://leaf.earthlimb.net> and <https://ol3.earthlimb.net> 
+<https://earthlimb.net> via <https://leaf.earthlimb.net> and <https://ol3.earthlimb.net> 
 
-<https://earth.eviz.biz> or <https://earth.eviz.biz/leaflet> and <https://earth.eviz.biz/openlayers>
+<https://earth.eviz.biz> via <https://earth.eviz.biz/leaflet> and <https://earth.eviz.biz/openlayers>
 
 
 #### TBD:
