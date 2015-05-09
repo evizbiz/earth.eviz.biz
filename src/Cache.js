@@ -11,7 +11,7 @@ if( arguments.length > 0 && config ) {
   Cache.config = {};
 }
 Cache.config.verbose = true;
-Cache.config.memmax = 100;
+Cache.config.memmax = 1000;
 Cache.config.memdmax = 10000;
 Cache.config.usrbin = ['/usr/local/bin/', '/opt/bin/'];
 if( ! Cache.config.precision ) Cache.precision = Cache.config.precision = 10; // 10 default
