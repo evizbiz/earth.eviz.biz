@@ -23,21 +23,22 @@ local install:
 
 also thru haproxy on my ubuntu and centos servers at 1and1 (with out-of-date ssl certificates): 
 
-<https://leaf.earthlimb.net> and <https://ol3.earthlimb.net> 
+<https://earthlimb.net> or <https://leaf.earthlimb.net> and <https://ol3.earthlimb.net> 
 
-<https://earth.eviz.biz/leaflet> and <https://earth.eviz.biz/openlayers>
+<https://earth.eviz.biz> or <https://earth.eviz.biz/leaflet> and <https://earth.eviz.biz/openlayers>
 
 
 #### TBD:
-1. perform reverse geoloaction search for selected (mouse-click lat-lon) place-name via: <https://github.com/twain47/Nominatim>
-2. get international data via open weather map service (see below).
-3. get more data (atmosphere and ocean) from nasa eos and other satellites via: <https://wiki.earthdata.nasa.gov/display/GIBS/GIBS+Available+Imagery+Products>
-4. jazz it up with bootstrap -- 3-column layout ala: <https://github.com/evizbiz/bootstrap-viewer-template/tree/master/3-column>
-5. complete cache functionaility -- file-system, memcached interface, and maybe postgis
-6. refactor html into jade with markdown; refactor common js into separate module; refactor css with lessc
-7. in-house deployment of mapnik or custom tile-server (local install of libosmium with full osm pdf dataset and optional import into local postgis)  
-8. compare server-side node.js (server.js) with python flask micro-server-framework (server.py) implementation: <https://github.com/miguelgrinberg/Flask-SocketIO>
-9. also compare socket.io and sockjs
+1. server-side session management
+2. complete cache functionaility -- file-system, memcached interface, and postgis
+3. perform reverse geoloaction search for selected (mouse-click lat-lon) place-name via: <https://github.com/twain47/Nominatim>
+4. get international data via open weather map service (see below).
+5. get more data (atmosphere and ocean) from nasa eos and other satellites via: <https://wiki.earthdata.nasa.gov/display/GIBS/GIBS+Available+Imagery+Products>
+6. jazz it up with bootstrap -- 3-column layout ala: <https://github.com/evizbiz/bootstrap-viewer-template/tree/master/3-column>
+7. refactor html into jade with markdown; refactor common js into separate module; refactor css with lessc
+8. in-house deployment of mapnik or custom tile-server (local install of libosmium with full osm pdf dataset and optional import into local postgis)  
+9. compare server-side node.js (server.js) with python flask micro-server-framework (server.py) implementation: <https://github.com/miguelgrinberg/Flask-SocketIO>
+10. also compare socket.io and sockjs
 
 #### NOAA Nationa Weather Service provides free info, but this particular interface provides lots of extraneuous content:
 
