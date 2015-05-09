@@ -24,7 +24,7 @@ NatWS.options = {
   headers: {'User-Agent': 'Mozilla/5.0 (X11; Fedora; Linux x86_64; rv:37.0) Gecko/20100101 Firefox/37.0'}
 };
 // the 1000 call / day free develper api key: 60*24 / 1000 == 1.44 min. ... so use freq. ~ 1 / 90 sec
-NatWS.interval = 90 * 1000; // 90 sec. interval
+NatWS.interval = 600 * 1000; // 10 min. == 600 sec. interval
 NatWS.loclist = [ [38.907826, -77.03195], [ 29.6520, -82.3250 ] ];
 // [lat, lon] dc (actually churchkey pub on new 14th) and gville
 
