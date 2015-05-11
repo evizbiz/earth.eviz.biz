@@ -7,7 +7,7 @@ not currently contain the location of interest, a REST API date fetch is perform
 National Weather Service and/or the Open Weather Map service. The cache is also populated via
 regular updates from the weather services.
 
-#### Install and deploy: prerequisites -- node.js, npm, and jake; HAProxy optional ...
+#### Install and deploy: prerequisites -- node.js, npm, and jake (haproxy optional)
 1. npm install -- ./node_modules/[a-z]
 2. jake or jake deploy -- creates index.html from this ReadMe.md
 3. ./server.js -- webserver default port 9000 shows this ReadMe index.html: <http://localhost:9000>
@@ -17,11 +17,12 @@ Only tested so far with node.js 0.12.2 on Linux with chrome, firefox,and seamonk
 
 #### Demos
 
-local install:
+local install (no authentication):
 
 <http://localhost:9000/leaflet> and <http://localhost:9000/openlayers> 
 
-also thru haproxy on my ubuntu and centos servers at 1and1 (with out-of-date ssl certificates): 
+demo is also available thru haproxy on my ubuntu and centos servers at <http://1and1.com> with
+out-of-date ssl certificates (authentication guest anonanon should work): 
 
 <https://earthlimb.net> via <https://leaf.earthlimb.net> and <https://ol3.earthlimb.net> 
 
