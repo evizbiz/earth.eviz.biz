@@ -49,7 +49,11 @@ task('index', ['npm'], function() {
 task('deploy', ['index'], function () {
   console.log('install node.js custom modules int ./node_module');
   //console.log(util.inspect(arguments));
-  var cmd = "/bin/csh -c 'cp -p ./src/[A-Z]*.js ./node_modules'";
+  var cmd = "/bin/csh -c 'chmod +x ./src/*.js ; cp -p ./src/[A-Z]*.js ./node_modules'";
   jake.exec(cmd, function() { console.log(cmd); });  
 });
 
+task('test', ['deploy'], function () {
+  var cmd = "node -e \"cache = require('Cache')(); cache.utmain()\""
+  jake.exec(cmd, function() { console.log(cmd); });
+});
