@@ -1,9 +1,13 @@
 #!/usr/bin/env node
 // in-memory, filesys and memcacheid i/o support:
-// usage:
-// var mycache = require('Cache')( { verbose: true, memmax: 100 } );
+// usage (optional single arg config obj, but could be an empty obj):
+// var mycache = require('Cache')( { verbose: true, memmax: 1000, precision: 10 } );
 
 module.exports = function(config) { 
+
+if( arguments.length <= 0 || !config ) {
+  config = { port: 9000, verbose: true, memmax: 1000, precision: 10 };
+}
 
 // in-memory cache obj
 Mem = {};
@@ -14,7 +18,7 @@ Mem.qidxlist = []; // keep track of in-memory quadtree indices (keys in data == 
 Mem.lodash = require('lodash'); // clone deep or shallow?
 Mem.clone = Mem.lodash.clone; // or Mem.lodash.deepClone
 // max number of cached observations in memory obj -- all others in memcached or filesys
-Mem.max = 1000; 
+Mem.max = config.memmax || 1000; 
 Mem.latestIdx = '0000000000'; // precision 10 
 Mem.verbose = true;
 
@@ -27,22 +31,21 @@ Memd.verbose = true;
 
 // export this:
 var Cache = {}; 
-Cache.config = {};
-Cache.verbose = Cache.config.verbose = true;
-Cache.precision = Cache.config.precision = 10; // 10 default
-Cache.config.memmax = Mem.max = 1000;
-Cache.config.memdmax = Memd.max = 10 * Mem.max;
-//Cache.config.usrbin = ['/usr/local/bin/', '/opt/bin/']; // spawnable child procs
-if( arguments.length > 0 && config ) {
-  Cache.verbose = Cache.config.verbose = Mem.verbose = config.verbose || true;
-  Cache.config.memmax = Mem.max = config.memmax ||  1000;
-  Cache.config.memdmax = Memd.max = config.memdmax || 10000;
-  Cache.precision =  Cache.config.precision = config.precision || 10; // 10 default
-}
+Cache.mem = Mem;
+Cache.memd = Memd;
+
+// minimal config:
+Cache.verbose = config.verbose || true;
+Cache.precision = config.precision || 10; // 10 default
+
+// shortcuts:
+Cache.memmax = Mem.max;
+Cache.memdmax = Memd.max;
 //console.log('Cache geoquadtree precision: '+ Cache.precision);
 // quadtree module
 Cache.clone = Mem.clone;
 Cache.latestIdx = Mem.latestIdx;
+
 Cache.quadtree = require('GeoQtree')(config); // NOAA NWS resp.data for lat-lon level 10 quadtree 
 Cache.fs = require('fs'); // file i/o
 Cache.os = require('os');
@@ -53,9 +56,6 @@ Cache.mkdirp = require('mkdirp');
 Cache.path = require('path'); 
 Cache.lodash = Mem.lodash;
 Cache.spawn = Memd.spawn; // support child procs
-
-Cache.mem = Mem;
-Cache.memd = Memd;
 
 ///////////////////////////// Memd funcs. ///////////////////////////////////////
 
@@ -106,6 +106,17 @@ Mem.shift = function() {
   return val0;
 }
 
+Mem.latest = function() { 
+  var lastidx = Mem.qidxlist.length - 1;
+  if( lastidx < 0 ) {
+    console.log('Mem.latest> Mem.qidxlist.length: '+Mem.qidxlist.length); 
+    return null;
+  }
+  var qidx = Mem.qidxlist[lastidx];
+  if( Mem.verbose ) console.log('Mem.latest> Mem.qidxlist.length: '+Mem.qidxlist.length+', qidx == '+qidx); 
+  return Mem.data[qidx];
+}
+
 Mem.push = function(qidx, val) {
   if( Mem.verbose ) console.log('Mem.push> '+qidx);
   Mem.qidxlist.push(qidx);
@@ -119,27 +130,15 @@ Mem.push = function(qidx, val) {
     console.log('Mem.push> qidx: '+qidx); 
     console.log('Mem.push> item count: '+dsz+' == '+isz);
   }
-  var latest = Mem.pull(qidx); 
-  if( isz <= Mem.max ) return latest; // ok within limits
-  // prevent cache from exceeding memory limits:
-  var oldest = Cache.shift(); // removes and returns first (oldest) item in array list 
-  return oldest;
+  var latest = Mem.latest(); 
+  if( isz > Mem.max ) Cache.shift(); // prevent cache from exceeding memory limits:
+  return latest;
 }
 
-Mem.latest = function() { 
-  var lastidx = Mem.qidxlist.length - 1;
-  if( lastidx < 0 ) {
-    console.log('Mem.latest> Mem.qidxlist.length: '+Mem.qidxlist.length); 
-    return null;
-  }
-  var qidx = Mem.qidxlist[lastidx];
-  if( Mem.verbose ) console.log('Mem.latest> Mem.qidxlist.length: '+Mem.qidxlist.length+', qidx == '+qidx); 
-  return Mem.data[qidx];
-}
 
 //////////////////////////// Cache funcs. include Mem and Memd ///////////////
-Cache.memd = Memd;
-Cache.mem = Mem;
+//Cache.memd = Memd;
+//Cache.mem = Mem;
 Cache.latest = Mem.latest;
 Cache.sizeOf = Mem.sizeOf;
 Cache.shift = Mem.shift;
@@ -153,7 +152,7 @@ Cache.push = function(loc, val, precision) {
   var coord = { lat: loc[0], lng: loc[1] };
   var qidx = Cache.latestIdx = Cache.quadtree.encode(coord, Cache.precision);
   var data = Cache.mem.push(qidx, val);
-  if( Cache.verbose ) console.log('Cache.push> idx, data.qtidx: '+qidx+', '+ data.qtidx);
+  if( Cache.verbose ) console.log('Cache.push> qidx, data.qtidx: '+qidx+', '+ data.qtidx);
   return data;
 }
 

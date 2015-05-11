@@ -2,17 +2,8 @@
 
 module.exports = function(config) {
 
-//var Weather = {}
-//NatWs.cache = require('Cache')(config); // fs, os, path, mkdirp, memcached, etc
-
 var Cache = require('Cache')(config); // fs, os, path, mkdirp, memcached, etc
 var Weather = Cache.clone(Cache); // shallow or deep copy?
-// Cache(cloned) obj should provide:
-// Cache.memSize()
-// Cache.mem.max -- max number of cached observations in memory -- all other in memcached or filesys
-// Cache.mem.push(loc, latestval)
-// Cache.mem.pull(qtidx);
-// Cache.memd.boot() (memcached as child proc)
 
 Weather.request = require('request'); // handles url redirects quite gracefully
 

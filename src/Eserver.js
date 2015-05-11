@@ -5,26 +5,27 @@
 
 module.exports = function(config) {
 
-var Eserver = {};
-Eserver.config = { port: 9000 }; // defaults
-if( arguments.length > 0 && config ) Eserver.config = config;
+if( arguments.length <= 0 || !config ) {
+  config = { port: 9000, verbose: true, memmax: 1000, precision: 10, interval: 600*1000 };
+}
 
-// more default server configs
-Eserver.config.verbose = true;
-Eserver.config.memmax = 10;
-Eserver.config.memdmax = 10000; 
-Eserver.config.server_emits = ['weather', 'date']; // server socket.io named msgs to clients 
-Eserver.config.client_emits = ['load', 'coord']; // clients socket.io named msgs to server
-//Eserver.config.usrbin = ['/usr/local/bin/', '/opt/bin/'];
-// load NOAA national weather service rest module
-// weather is lodash-cloned-extended cache obj
-Eserver.config.weather = Eserver.weather = require('NatWS')(Eserver.config);
-// load socket.io module and define event handlers
-// (which might include a click to request latest current data from weatherground)
-Eserver.websock = require('WebSock')(Eserver.config); // websock is lodash-cloned-extended weather obj
+var Eserver = {};
 
 // Creating an express server
 Eserver.express = require('express'); // static file server
+// weather is lodash-cloned-extended cache obj
+Eserver.weather = require('NatWS')(config); // cacheing weather obj needs memax and updater interval
+// load socket.io module and define event handlers
+// (which might include a click to request latest current data from weatherground)
+Eserver.websock = require('WebSock')(config); // websock is lodash-cloned-extended weather obj
+
+// more default server configs
+Eserver.verbose = config.verbose || true;
+//Eserver.memmax = config.memmax || 1000;
+//Eserver.memdmax = 10*Eserver.memmax; 
+Eserver.server_emits = ['weather', 'date']; // server socket.io named msgs to clients 
+Eserver.client_emits = ['load', 'coord']; // clients socket.io named msgs to server
+// load NOAA national weather service rest module
 
 Eserver.listen = function(port) {
   // init a new socket.io object bound to the express app, allowing them to coexist.

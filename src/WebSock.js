@@ -2,20 +2,38 @@
 
 module.exports = function(config) {
 
+if( arguments.length <= 0 || !config ) {
+  //config = { verbose: true, memmax: 1000, precision: 10, interval: 600*1000,  weather: [] };
+  config = { verbose: true, memmax: 1000, precision: 10, interval: 600*1000,  weather: null };
+}
+
 var WebSock = {};
 
-if( arguments.length > 0 && config && config.weather) {
-  WebSock.weather = config.weather;
-} else {
-  WebSock.weather = require('NatWS')(config);
-}
 WebSock.sockio = require('socket.io');
+
+// need one or more weather source for regular and on-click updates to client(s)
+//if( !config.weather || config.weather.length <= 0 ) { 
+if( !config.weather ) { 
+  var weather = require('NatWS')(config);
+  //config.weather = []; config.weather.push(weather); // tbd multiple weather sources
+  config.weather = weather;
+}
+WebSock.interval = config.interval || 600*1000; 
+WebSock.weather = config.weather;
+
+// a local traffic (maybe webcam) source for perodic updates to client(s)
+// if( ! config.traffic ) WebSock.traffic = require('Traffic')(config);
+// a foreign exchange source for perodic updates to client(s)
+// if( ! config.forex ) WebSock.forex = require('Forex')(config);
+// a finance / stock market source for periodic updates to client(s)
+// if( ! config.finance ) WebSock.finance = require('Finance')(config);
 
 WebSock.weatherCache = function(socket, weather) { 
   if( arguments.length > 1 && weather) { WebSock.weather = weather; }
   var conditions = 'awaiting weather rest request to complete ...'
   // extracted local temperature and winds and visibility, etc.
-  var conditions = WebSock.weather.cachedObs();
+  // var conditions = WebSock.weather[0].cachedObs(); // tbd multiple sources of weather
+  var conditions = WebSock.weather.cachedObs(); // tbd multiple sources of weather
   console.log('WebSock.weatherCache> emit to client: ');
   console.log('WebSock.weatherCache> '+conditions);
   socket.emit('weather', conditions);
@@ -86,6 +104,7 @@ WebSock.onCoord = function(socket, data) {
     console.log('WebSock.onCoord> bad coord data (neither leaflet nor openlayers3?');
     return;
   }
+  //WebSock.weather[0].conditions(latlon, socket); // get conditions for new location
   WebSock.weather.conditions(latlon, socket); // get conditions for new location
   WebSock.sendSysInfo(socket); // might as well update datetime-header too
 }
@@ -105,7 +124,7 @@ WebSock.startClientUpdates = function(socket, weather) {
   setInterval(function() {
     WebSock.sendSysInfo(socket);
     WebSock.weatherCache(socket, weather); // latest cached conditions
-  }, weather.interval); // Wunder.interval periodicity == 30 sec
+  }, WebSock.interval); // interval periodicity == 10 min. 
 }
 
 WebSock.onConnect = function(socket, weather) {

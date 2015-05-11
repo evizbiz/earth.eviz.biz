@@ -10,7 +10,8 @@ var web = [__dirname];
 
 // default http port 9000
 var port = process.env.PORT || parseInt(process.argv.slice(2)) || 9000;
-var config = { pub: web, listen: port, verbose: true };
+var cache = 3; // max size of memory cache 
+var config = { pub: web, listen: port, memmax: cache, verbose: true };
 
 // the module load returns an express server init / ctor function that takes one arg
 // config obj and returns the Eserver obj
