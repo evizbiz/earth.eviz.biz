@@ -10,7 +10,7 @@ regular updates from the weather services.
 #### Install and deploy: prerequisites -- node.js, npm, and jake (haproxy optional)
 1. npm install -- ./node_modules/[a-z]
 2. jake or jake deploy -- creates index.html from this ReadMe.md
-3. ./server.js -- webserver default port 9000 shows this ReadMe index.html: <http://localhost:9000>
+3. ./server.js -- webserver default port 9000 shows this ReadMe index.html: <http://localhost:9000>[localhost:9000]
 
 Only tested so far with node.js 0.12.2 on Linux with chrome, firefox,and seamonkey
 (deployed on <http://1and1.com> dedicated servers ...)
@@ -21,12 +21,12 @@ local install (no authentication):
 
 <http://localhost:9000/leaflet> and <http://localhost:9000/openlayers> 
 
-demo is also available thru haproxy on my ubuntu and centos servers at <http://1and1.com> with
+demo is also available thru haproxy on my ubuntu and centos servers at <http://1and1.com>[1and1.com] with
 out-of-date ssl certificates (authentication guest anonanon should work): 
 
-<https://earthlimb.net> via <https://leaf.earthlimb.net> and <https://ol3.earthlimb.net> 
+<https://earthlimb.net>[earthlimb.net] via <https://leaf.earthlimb.net>[leaf.earthlimb.net] and <https://ol3.earthlimb.net>[ol3.earthlimb.net] 
 
-<https://earth.eviz.biz> via <https://earth.eviz.biz/leaflet> and <https://earth.eviz.biz/openlayers>
+<https://earth.eviz.biz>[earth.eviz.biz] via <https://earth.eviz.biz/leaflet>[earth.eviz.biz/leaflet] and <https://earth.eviz.biz/openlayers>[earth.eviz.biz/openlayers]
 
 
 #### TBD:
