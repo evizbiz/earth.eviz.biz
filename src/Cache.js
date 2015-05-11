@@ -31,8 +31,6 @@ Memd.verbose = true;
 
 // export this:
 var Cache = {}; 
-Cache.mem = Mem;
-Cache.memd = Memd;
 
 // minimal config:
 Cache.verbose = config.verbose || true;
@@ -106,15 +104,25 @@ Mem.shift = function() {
   return val0;
 }
 
-Mem.latest = function() { 
+Mem.latestObs = function(loc) {
+  // tbd get latest obs for loc[0] == lat, loc[1] = lon 
+  // or loc == quadtree index
+  // if( loc ) {
+  //   var qidx = loc; // if string, length of string is quadtree precision
+  //   if( !loc.isString() ) {
+  //     var coord = { lat: loc[0], lng: loc[1] };
+  //     qidx = Cache.quadtree.encode(coord, Cache.precision);
+  //   } 
+  //   return Mem.data[qidx];
+  // }
   var lastidx = Mem.qidxlist.length - 1;
   if( lastidx < 0 ) {
-    console.log('Mem.latest> Mem.qidxlist.length: '+Mem.qidxlist.length); 
+    console.log('Mem.latestObs> Mem.qidxlist.length: '+Mem.qidxlist.length); 
     return null;
   }
   var qidx = Mem.qidxlist[lastidx];
-  if( Mem.verbose ) console.log('Mem.latest> Mem.qidxlist.length: '+Mem.qidxlist.length+', qidx == '+qidx); 
-  return Mem.data[qidx];
+  if( Mem.verbose ) console.log('Mem.latestObs> Mem.qidxlist.length: '+Mem.qidxlist.length+', qidx == '+qidx); 
+  return Mem.data[qidx]; // data == { qtidx: idx, obs: val }
 }
 
 Mem.push = function(qidx, val) {
@@ -130,16 +138,16 @@ Mem.push = function(qidx, val) {
     console.log('Mem.push> qidx: '+qidx); 
     console.log('Mem.push> item count: '+dsz+' == '+isz);
   }
-  var latest = Mem.latest(); 
+  var latest = Mem.latestObs(qidx); 
   if( isz > Mem.max ) Cache.shift(); // prevent cache from exceeding memory limits:
   return latest;
 }
 
 
 //////////////////////////// Cache funcs. include Mem and Memd ///////////////
-//Cache.memd = Memd;
-//Cache.mem = Mem;
-Cache.latest = Mem.latest;
+Cache.memd = Memd;
+Cache.mem = Mem;
+Cache.latestObs = Mem.latestObs;
 Cache.sizeOf = Mem.sizeOf;
 Cache.shift = Mem.shift;
 
@@ -199,7 +207,7 @@ Cache.utmain = function() {
   locs.forEach(function(loc) {
     var today = (new Date()).toJSON().split('T');   
     var oldest = Cache.push(loc, today[1]+' another data value for location lat: '+loc[0]+', lon: '+loc[1]);    
-    var latest = Cache.latest();
+    var latest = Cache.latestObs();
     qidxlist.push(latest.qtidx);
     console.log('Cache.utmain> Cache.latestIdx: '+Cache.latestIdx);
   });
