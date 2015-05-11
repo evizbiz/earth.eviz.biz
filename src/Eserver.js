@@ -21,8 +21,9 @@ Eserver.websock = require('WebSock')(config); // websock is lodash-cloned-extend
 
 // more default server configs
 Eserver.verbose = config.verbose || true;
-//Eserver.memmax = config.memmax || 1000;
-//Eserver.memdmax = 10*Eserver.memmax; 
+Eserver.memmax = config.memmax || 1000;
+Eserver.memdmax = 10*Eserver.memmax; 
+Eserver.interval = config.interval || 600*1000;
 Eserver.server_emits = ['weather', 'date']; // server socket.io named msgs to clients 
 Eserver.client_emits = ['load', 'coord']; // clients socket.io named msgs to server
 // load NOAA national weather service rest module
@@ -38,12 +39,12 @@ Eserver.listen = function(port) {
 
 Eserver.startWeather = function() {
   console.log("Eserver.startWeather> conditions interval fetcher");
-  Eserver.weather.conditions(); // async request shouldupdate Weather.current can take a while
+  Eserver.weather.conditions(); // async request should update current obs -- can take a while
   setInterval(function() { 
     var time = new Date(); 
     Eserver.io.emit('date', time);
     Eserver.weather.conditions(); 
-  }, Eserver.weather.interval); // Weather.interval periodicity == 90 sec
+  }, Eserver.interval); // Weather.interval periodicity == 10 min.
 }
 
 Eserver.onConnect = function(socket) { Eserver.websock.onConnect(socket, Eserver.weather); }
