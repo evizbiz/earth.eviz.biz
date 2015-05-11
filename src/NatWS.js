@@ -2,19 +2,20 @@
 
 module.exports = function(config) {
 
-//var NatWS = {}
-//NatWs.cache = require('Cache')(config); // fs, os, path, mkdirp, memcached, etc
+if( arguments.length <= 0 || !config ) {
+  config = { verbose: true, memmax: 1000, precision: 10, interval: 600*1000, weather: null };
+}
 
 var Cache = require('Cache')(config); // fs, os, path, mkdirp, memcached, etc
+
+// clone cache obj with config
 var NatWS = Cache.clone(Cache); // shallow or deep copy?
-// Cache(cloned) obj should provide:
-// Cache.memSize()
-// Cache.mem.max -- max number of cached observations in memory -- all other in memcached or filesys
-// Cache.mem.push(loc, latestval)
-// Cache.mem.pull(qtidx);
-// Cache.memd.boot() (memcached as child proc)
 
 NatWS.request = require('request'); // handles url redirects quite gracefully
+
+// weather updates very 10 min. (conditions rarely change much faster)
+NatWS.interval = config.interval || 600*1000; // 10 min. == 600 sec. interval
+
 NatWS.jsonURL = 'http://forecast.weather.gov/MapClick.php?unit=0&lg=english&FcstType=json'; // +
                 // '&lat=29.6805&lon=-82.4271' 
 // https://github.com/request/request#custom-http-headers -- evidently default header yields
@@ -23,12 +24,16 @@ NatWS.options = {
   url: NatWS.jsonURL,
   headers: {'User-Agent': 'Mozilla/5.0 (X11; Fedora; Linux x86_64; rv:37.0) Gecko/20100101 Firefox/37.0'}
 };
-// the 1000 call / day free develper api key: 60*24 / 1000 == 1.44 min. ... so use freq. ~ 1 / 90 sec
-NatWS.interval = 600 * 1000; // 10 min. == 600 sec. interval
 NatWS.loclist = [ [38.907826, -77.03195], [ 29.6520, -82.3250 ] ];
 // [lat, lon] dc (actually churchkey pub on new 14th) and gville
 
-NatWS.parseObs = function(val) {
+NatWS.parseObs = function(latest) {
+  var obstxt = '' + NatWS.memSize() + '). no latest data obs? ';
+  if( ! latest || ! latest.hasOwnProperty('obs') ) { 
+    console.log('NatWS.parseObs> '+obstxt+latest);
+    return obstxt;
+  }
+  var val = latest.obs;
   var today = val.data.text[0] + ' ... ' + val.data.text[1];
   var current = val.currentobservation;
   obstxt = '' + NatWS.memSize() + '). ' + 
@@ -52,12 +57,12 @@ NatWS.cachedObs = function() { // from cache
     console.log('NatWS.cachedObs> no cache? '+cachelen);
     return latest.obs;
   }
-  latest = NatWS.latest();
-  return NatWS.parseObs(latest.obs);
+  latest = NatWS.latest(); // Cache.latest()
+  return NatWS.parseObs(latest);
 }
 
 NatWS.setObs = function(loc, val, socket) {
-  NatWS.mem.push(loc, val); // push latest obs onto cache
+  NatWS.push(loc, val); // push latest obs onto cache
   // and optionally send info to client
   var conditions = NatWS.parseObs(val);
   if( socket ) socket.emit('weather', conditions);
@@ -120,6 +125,8 @@ NatWS.conditions = function(local, socket) {
   });
 }
 
+//config.weather.push(NatWS);
+config.weather = NatWS;
 return NatWS;
 };
 
