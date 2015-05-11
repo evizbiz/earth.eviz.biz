@@ -104,9 +104,10 @@ WebSock.onCoord = function(socket, data) {
     console.log('WebSock.onCoord> bad coord data (neither leaflet nor openlayers3?');
     return;
   }
-  //WebSock.weather[0].conditions(latlon, socket); // get conditions for new location
-  WebSock.weather.conditions(latlon, socket); // get conditions for new location
-  WebSock.sendSysInfo(socket); // might as well update datetime-header too
+  // get conditions for new location and push into cache:
+  //WebSock.weather[0].conditions(latlon, socket);
+  WebSock.weather.conditions(latlon, socket);
+  WebSock.sendSysInfo(socket); // update datetime-header 
 }
 
 WebSock.onText = function(socket, data) {

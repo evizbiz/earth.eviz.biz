@@ -64,7 +64,8 @@ NatWS.cachedObs = function() { // from cache
 NatWS.setObs = function(loc, val, socket) {
   NatWS.push(loc, val); // push latest obs onto cache
   // and optionally send info to client
-  var conditions = NatWS.parseObs(val);
+  var latest = NatWS.latest();
+  var conditions = NatWS.parseObs(latest);
   if( socket ) socket.emit('weather', conditions);
   return conditions;
 }
@@ -96,10 +97,11 @@ NatWS.geojsonOfInterest = function() {
 NatWS.handleObs = function(body, loc, socket) {
   // update in-memory latest value
   try {
-    var obs = JSON.parse(body); 
-    obs.now = new Date(); // cache time-stamp
-    var obstxt = NatWS.setObs(loc, obs, socket); // push latest obs onto cache  
-    var filename = NatWS.saveFile(loc, obs);
+    var val = JSON.parse(body); 
+    val.now = new Date(); // cache time-stamp
+    // push latest obs onto cache and emit to client 
+    var obstxt = NatWS.setObs(loc, val, socket);
+    var filename = NatWS.saveFile(loc, val); // sync file-cache
   } catch( e ) {
    console.log('NatWS.handleObs> resp. body is notJSON ... ' + e);
   }
@@ -109,10 +111,13 @@ NatWS.conditions = function(local, socket) {
   // tbd city name to latlon func and vice-versa ... for now local should be == [lat, lon]
   // var testlocals = ['Washington,DC', 'Gainesville,FL'];
   if( arguments.length > 0 && local) {
-    NatWS.loclist.push(local);
+    NatWS.loclist.push(local); // keep track of locations?
     console.log('NatWS.conditions> '+NatWS.loclist.length+'). new loc: '+local);
   }
-  var fetchall = [ NatWS.loclist[NatWS.loclist.length-1] ]; // [ dc, gv ] -- just gv
+  else {
+    local = NatWS.loclist[NatWS.loclist.length-1]; // last-latest loc. 
+  }
+  var fetchall = [ local ]; // tbd fetch more last 2 or 3 or whatever to compare
   // support fetching listof locs.
   fetchall.forEach(function(loc) {
     var url = NatWS.options.url = NatWS.jsonURL + '&lat=' + loc[0] + '&lon=' + loc[1];
