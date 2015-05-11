@@ -10,6 +10,8 @@
   Weather.socket = null;
   Weather.position = { coords: { latitude: 29.65, longitude: -82.35 } }; // gainesville fl
   Weather.clickLoc = 'mouse click location text (lat-lon)';
+  Weather.clickLatLng = null;
+  Weather.map = null;
 
   Weather.dateHandler = function(data) {
     Weather.cache.datetime = data; // console.log(Weather.cache.date);
@@ -19,6 +21,10 @@
   Weather.conditionsHandler = function(data) {
     Weather.cache.text = data;
     console.log(Weather.clickLoc+' -- '+Weather.cache.text);
+    if( Weather.map && Weather.clickLatLng ) {
+      var content = '<html><body><p>'+Weather.clickLoc+'</p>'+Weather.cache.text+'</body></html>';
+      L.popup().setLatLng(Weather.clickLatLng).setContent(content).openOn(Weather.map);
+    }
     $('#text-header').text(Weather.clickLoc);
     $('#text-footer').text(Weather.cache.text);
   }
@@ -36,7 +42,8 @@
       navigator.geolocation.getCurrentPosition(function(pos) { Weather.position = pos;} );
     }
 
-    var map = L.map('map'); console.log('leaflet map for div id == "map"');
+    var map = Weather.map = L.map('map');
+    console.log('leaflet map for div id == "map"');
     //$.geolocation.get({win: alertMyPosition, fail: noLocation});
     var loc = { lat: Weather.position.coords.latitude, lon: Weather.position.coords.longitude }; // default gainesville fl
     var town = new L.LatLng(loc.lat, loc.lon); 
@@ -54,11 +61,12 @@
     //$('#map').style.display = 'block'; map.invalidateSize(); // somehow this forece proper map rendering?
     document.getElementById('map').style.display = 'block'; map.invalidateSize();
     var onMapClick = function(e) { 
+      Weather.clickLatLng = e.latlng;
       Weather.clickLoc = e.latlng.toString();
       $('#text-header').text(Weather.clickLoc);
       Weather.socket.emit('coord', {'latlon': Weather.clickLoc } );
       var content = '<html><body><p>'+Weather.clickLoc+'</p>'+Weather.cache.text+'</body></html>';
-      L.popup().setLatLng(e.latlng).setContent(content).openOn(map);
+      L.popup().setLatLng(Weather.clickLatLng).setContent(content).openOn(map);
     };
     map.on('click', onMapClick); console.log('leaflet map click handler set');
     Weather.socket.emit('load', {'ready': 'new client connected and ready to roll.'} );
