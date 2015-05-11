@@ -9,14 +9,16 @@
 
 module.exports = function(config) { 
 
-var GeoQtree = {}; 
-GeoQtree.config = {};
-if( arguments.length > 0 && config ) GeoQtree.config = config;
-GeoQtree.config.verbose = true; // debug?
+if( arguments.length <= 0 || !config ) {
+  config = { verbose: true, precision: 10, range: { lng: 180, lat: 90 } };
+}
 
+var GeoQtree = {}; 
+
+GeoQtree.verbose = config.verbose || true; // debug?
 // GeoQtree is meant for global lat-lon coords
-GeoQtree.precision = GeoQtree.config.precision || 10; // default precision
-GeoQtree.range = GeoQtree.config.range || { lng: 180, lat: 90 }; 
+GeoQtree.precision = config.precision || 10; // default precision
+GeoQtree.range = config.range || { lng: 180, lat: 90 }; 
 
 GeoQtree.placeLoc = function(name) {
   // use osm nomination placename search api and return list of qt-indices 
