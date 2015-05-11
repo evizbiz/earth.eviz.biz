@@ -125,7 +125,8 @@ NatWS.conditions = function(local, socket) {
   });
 }
 
-config.weather.push(NatWS);
+//config.weather.push(NatWS);
+config.weather = NatWS;
 return NatWS;
 };
 

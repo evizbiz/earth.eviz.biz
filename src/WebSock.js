@@ -32,7 +32,8 @@ WebSock.weatherCache = function(socket, weather) {
   if( arguments.length > 1 && weather) { WebSock.weather = weather; }
   var conditions = 'awaiting weather rest request to complete ...'
   // extracted local temperature and winds and visibility, etc.
-  var conditions = WebSock.weather[0].cachedObs(); // tbd multiple sources of weather
+  // var conditions = WebSock.weather[0].cachedObs(); // tbd multiple sources of weather
+  var conditions = WebSock.weather.cachedObs(); // tbd multiple sources of weather
   console.log('WebSock.weatherCache> emit to client: ');
   console.log('WebSock.weatherCache> '+conditions);
   socket.emit('weather', conditions);
