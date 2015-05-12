@@ -1,7 +1,7 @@
 #### Open Street Map Weather WebSocket (Socket.io) demo. comparing Leaflet and OpenLayers3
  
 Provides a popup / layover / marker containing local weather conditions for selected location.
-Pleae note this current version provides weather conditions via the NOAA National Weather Service
+Please note this current version provides weather conditions via the NOAA National Weather Service
 REST API. Consequently there are no weather conditions for any geolocations outside the USA.
 
 A browser client single-left-mouse-click should emit lat-lon coords. to the server which are then
