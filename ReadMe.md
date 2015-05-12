@@ -2,7 +2,7 @@
  
 Provides a popup / layover / marker containing local weather conditions for selected location.
 Pleae note this current version provides weather conditions via the NOAA National Weather Service
-REST API. Consequently there is no weather conditions for any geolocations outside the USA>
+REST API. Consequently there are no weather conditions for any geolocations outside the USA.
 
 A browser client single-left-mouse-click should emit lat-lon coords. to the server which are then
 converted to a quadtree cell index. Cached data is searched forin a quadtree indexed hash cache.
