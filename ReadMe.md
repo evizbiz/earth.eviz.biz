@@ -1,11 +1,14 @@
 #### Open Street Map Weather WebSocket (Socket.io) demo. comparing Leaflet and OpenLayers3
  
 Provides a popup / layover / marker containing local weather conditions for selected location.
-Browser client single-left-mouse-click should emit lat-lon coord. to server which then converts to
-quadtree cell index and searches for data in a quadtree indexed hash cache. If the cache does
-not currently contain the location of interest, a REST API date fetch is perform from the NOAA
-National Weather Service and/or the Open Weather Map service. The cache is also populated via
-regular updates from the weather services.
+Pleae note this current version provides weather conditions via the NOAA National Weather Service
+REST API. Consequently there is no weather conditions for any geolocations outside the USA>
+
+A browser client single-left-mouse-click should emit lat-lon coords. to the server which are then
+converted to a quadtree cell index. Cached data is searched forin a quadtree indexed hash cache.
+If the cache does not currently contain the location of interest, a REST API date fetch is performed
+from the NOAA National Weather Service (and TBD from the Open Weather Map service). The cache is
+also populated via regular (default is 10 min.) updates from the weather service(s).
 
 #### Install and deploy: prerequisites -- node.js, npm, and jake (haproxy optional)
 1. npm install -- ./node_modules/[a-z]
