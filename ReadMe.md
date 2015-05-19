@@ -61,7 +61,7 @@ expects registration for a unique 'appkey' ..
 
 ---
 
-#### Open Weather Map provide 1200 / min free -- wow!
+#### Open Weather Map provides 1200 / min free -- wow!
     appkey: 'regiser to get your unique hex key'
     http://api.openweathermap.org/data/2.5/forecast/city?id=524901&APPID=appkey
     http://api.openweathermap.org/data/2.5/weather?lat=val&lon=val&APPID=appkey
