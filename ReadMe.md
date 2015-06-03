@@ -33,6 +33,7 @@ out-of-date ssl certificates (authentication guest anonanon should work):
 
 
 #### TBD:
+0. refactor js into commonjs mudules via browserify and npm (new repos. earthlimb.net). see http://gofore.com/ohjelmistokehitys/stop-using-bower/
 1. server-side session management
 2. complete cache functionaility -- file-system, memcached interface, and postgis
 3. perform reverse geoloaction search for selected (mouse-click lat-lon) place-name via: <https://github.com/twain47/Nominatim>
