@@ -1,5 +1,15 @@
 { "type": "FeatureCollection", "features": [
   { "type": "Feature",
+    "geometry": { "type": "Point", "coordinates": [-77.03637,38.89511] },
+    "properties": {
+      "name": "Washington DC",
+      "address": "TBD",
+      "marker-color": "#7e7e7e",
+      "marker-size": "medium",
+      "marker-symbol": "building"
+    }
+  },
+  { "type": "Feature",
     "geometry": { "type": "Point", "coordinates": [-82.33205795288086,29.64998056654069] },
     "properties": {
       "name": "UF Innovation Hub",
